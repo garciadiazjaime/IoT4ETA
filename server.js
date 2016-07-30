@@ -3,7 +3,7 @@
 var startpoint = "Merchandise Mart, Chicago, Illinois, United States"; // Commute starting address
 var endpoint = "722 Hinman Ave, Evanston, Illinois, United States"; // Commute ending address
 var trafficlowthreshold = 1; // If traffic adds 3 min. or less to commute, traffic is "low."
-var traffichighthreshold = 2; // If traffic adds 10 min. or more to commute, traffic is "high." If traffic adds between 3 and 10 minutes to commute, traffic is "medium."
+var traffichighthreshold = 3; // If traffic adds 10 min. or more to commute, traffic is "high." If traffic adds between 3 and 10 minutes to commute, traffic is "medium."
 var refreshrate = 1; // Traffic data is updated every 5 minutes.
 //
 ///////////////////////////////////////
