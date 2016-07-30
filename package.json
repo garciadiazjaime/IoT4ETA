@@ -1,6 +1,6 @@
 {
   "name": "iot4eta",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A small, internet-connected light that alerts you about current traffic on your commute.",
   "main": "server.js",
   "dependencies": {
