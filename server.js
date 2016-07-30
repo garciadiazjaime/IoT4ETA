@@ -1,14 +1,10 @@
 //////// Customize this data! /////////
 //
-var startpoint = "Microsoft, 10900 Stonelake Blvd. Austin, TX 78759"; // Commute starting address
-var endpoint = "Pinballz, 8940 Research Blvd Ste 100, Austin, TX 78758"; // Commute ending address
-var trafficlowthreshold = 3; // If traffic adds 3 min. or less to commute, traffic is "low."
-var traffichighthreshold = 10; // If traffic adds 10 min. or more to commute, traffic is "high." If traffic adds between 3 and 10 minutes to commute, traffic is "medium."
-var refreshrate = 5; // Traffic data is updated every 5 minutes.
-var myparticleemail = "StoreThisLocallyOrInAzure" // The email address you use to log in to build.particle.io.
-var myparticlepw = "StoreThisLocallyOrInAzure" // The password you use to log in to build.particle.io.
-var myparticletoken = "StoreThisLocallyOrInAzure" // Photon token (build.particle.io > Settings)
-var mybingmapskey = "StoreThisLocallyOrInAzure" // Bing Maps API Key (bingmapsportal.com)
+var startpoint = "Merchandise Mart, Chicago, Illinois, United States"; // Commute starting address
+var endpoint = "722 Hinman Ave, Evanston, Illinois, United States"; // Commute ending address
+var trafficlowthreshold = 1; // If traffic adds 3 min. or less to commute, traffic is "low."
+var traffichighthreshold = 2; // If traffic adds 10 min. or more to commute, traffic is "high." If traffic adds between 3 and 10 minutes to commute, traffic is "medium."
+var refreshrate = 1; // Traffic data is updated every 5 minutes.
 //
 ///////////////////////////////////////
 
@@ -29,6 +25,7 @@ var triplength,
 // Get traffic estimate from Bing Maps API and publish to Photon
 
 function getTraffic() {
+  console.log('getTraffic');
     var request = http.get(url, function (response) {
         var buffer = "",
             data;
@@ -38,8 +35,9 @@ function getTraffic() {
 
             // Compare route with and without current traffic delays to determine traffic rating (low, med, high)
 
-            triplength = data.resourceSets[0].resources[0].travelDurationTraffic / 60; 
+            triplength = data.resourceSets[0].resources[0].travelDurationTraffic / 60;
             normallength = data.resourceSets[0].resources[0].travelDuration / 60;
+            console.log('triplength', triplength, 'normallength', normallength);
             if (normallength + trafficlowthreshold >= triplength) {
                 console.log("Little to no traffic! Your journey should take " + Math.round(triplength) + " minutes.");
                 trafficrating = "low";
@@ -58,10 +56,10 @@ function getTraffic() {
             var publishEventPr = particle.publishEvent({ name: 'traffic', data: trafficrating, auth: myparticletoken });
             publishEventPr.then(
                 function (data) {
-                    console.log("Publishing to Photon...");
+                    console.log("Publishing to Photon...", data);
                 },
                 function (err) {
-                    console.log("Failed to publish event. :(");
+                    console.log("Failed to publish event. :(", err);
                 }
             );
         });
